@@ -1,5 +1,6 @@
 N = int(input())
 
+#재귀(2^n)
 arr = [0] * (N+1)
 arr[0] = 0
 if N>0: arr[1] = 1
@@ -13,10 +14,8 @@ def fibonacci(N, arr):
 
 print(fibonacci(N, arr))
 
-#dp
+#dp(n)
 """
-N = int(input())
-
 fibo = [0] * (N+1)
 
 #N은 원소 번호: #1~#N
