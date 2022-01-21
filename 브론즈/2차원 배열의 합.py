@@ -20,3 +20,4 @@ for idx in idxs:
     print("X,Y", (x*len(arr[0])) + (y))
     print("SQR1,2", noo[(x*len(arr[0])) + y], noo[(i*len(arr[0])) + j])
     print(noo[(x*len(arr[0])) + y] - noo[(i*len(arr[0])) + j])
+#
