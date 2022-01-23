@@ -55,3 +55,38 @@ for i in cands[0]:
     solve(N, 0, [i], tmp)
 
 print(cnt)
+
+#another version(정석)
+"""
+N = int(input())
+
+#백트래킹
+def solve(i, q):
+    p = [True for i in range(N+1)]
+    
+    #이거 한줄 빼먹어서 틀리고 있었음.
+    p[0] = False
+
+    for x in range(1, i):
+        p[q[x]] = False
+        if q[x] + i - x <= N:
+            p[q[x] + i - x] = False
+        if q[x] - i + x >= 1:
+            p[q[x] - i + x] = False
+    
+    rst = 0
+
+    for j in range(len(p)):
+        if p[j] == True:
+            if i == N:
+                global cnt
+                rst += 1
+            else:
+                q[i] = j
+                rst += solve(i+1, q)
+
+    return rst
+
+res = solve(1, [True for _ in range(N+1)])
+print(res)
+"""
