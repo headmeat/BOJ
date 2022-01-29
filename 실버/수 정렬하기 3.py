@@ -8,7 +8,7 @@ for i in range(N):
 cnt = 0
 
 for i in range(1, 10001):
-    if cnt == N: break
     if arr[i] >= 1: 
-        #print(f"{i}\n"*arr[i], end="")
         for j in range(arr[i]): sys.stdout.write("%d\n" % (i))
+        cnt += 1
+    if cnt == N: break
