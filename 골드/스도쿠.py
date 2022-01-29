@@ -15,10 +15,11 @@ def solve(N, k, lst):#N은 보고있는 로우 #, k는 열 번호(0~8)
     else:
         rec_x, rec_y = N // 3, k // 3
         tmp = [arr[x][y] for x in range(9) if x//3 == rec_x for y in range(9) if y//3 == rec_y]
-
+        tmp2 = [arr[x][k] for x in range(9) if x != N]
+        
         for i in range(1, 10):
             if len(tmp) != 9: print("?")
-            if i not in lst and i not in [arr[x][k] for x in range(9) if x != N] and i not in tmp:
+            if i not in lst and i not in tmp2 and i not in tmp:
                 lst[k] = i
                 solve(N, k+1, lst)
                 lst[k] = 0
