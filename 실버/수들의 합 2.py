@@ -28,3 +28,26 @@ while ( l < N ):
             else: break
 
 print(cnt)
+
+#좀 더 정리된 답안
+"""
+import sys
+input = sys.stdin.readline
+
+N, S = map(int, input().split())
+l = h = sm = cnt = 0
+arr = list(map(int, input().split()))
+
+while ( True ):
+    if sm < S and h < N:
+        sm += arr[h]
+        h += 1
+    elif l == N: break
+    else:
+        sm -= arr[l]
+        l += 1
+    
+    if sm == S: cnt += 1
+
+print(cnt)
+"""
