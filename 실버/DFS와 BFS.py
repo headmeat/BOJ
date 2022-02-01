@@ -1,58 +1,48 @@
 from collections import deque
 
-N, M, start = map(int, input().split())
+N, M, V = map(int, input().split())
 
-edges = [list(map(int, input().split())) for i in range(M)]
+arr = [list(map(int, input().split())) for _ in range(M)]
+def sorting(arr):
+    for i in arr:
+        if i[0] > i[1]:
+            tmp = i[0]
+            i[0] = i[1]
+            i[1] = tmp
 
-def dfs(edges, visited):
-    stack = []
-    stack.append(start)
-
-    while(len(stack)!=0):
-        cur = stack[-1]
-        if visited[cur] == False: print(cur, end = " ")
-        visited[cur] = True
-
-        for j in edges:
-            if cur in j:
-                cur_idx = j.index(cur)
-                nei_idx = 0 if cur_idx == 1 else 1
-                neigh = j[nei_idx]
-                if visited[neigh] == False:
-                    stack.append(neigh)
-                    break
-            if j == edges[-1]: stack.pop()
-
-def bfs(edges, visited):
+def bfs(start, edges, visited):
     queue = deque()
     queue.append(start)
-    visited[start] = True
-    print(start, end = " ")
 
     while(len(queue)!=0):
-        cur = queue.popleft()
+        start = queue.popleft()
+        print(start, end = " ")
+        for edge in edges:
+            if start in edge:
+                neighbor = sum(edge) - start
+                if visited[neighbor] != 1:
+                    queue.append(neighbor)
+                    visited[neighbor] = 1
 
-        for j in edges:
-            if cur in j:
-                cur_idx = j.index(cur)
-                nei_idx = 0 if cur_idx == 1 else 1
-                neigh = j[nei_idx]
-                if visited[neigh] == False:
-                    queue.append(neigh)
-                    visited[neigh] = True
-                    print(neigh, end = " ")
+def dfs(start, edges, visited): 
+    print(start, end=" ")
+    for edge in edges:
+        if start in edge:
+            neighbor = sum(edge) - start
+            if visited[neighbor] != 1:
+                visited[neighbor] = 1
+                dfs(neighbor, edges, visited)
 
-for i in edges:
-    if i[0] > i[1]:
-        tmp = i[0]
-        i[0] = i[1]
-        i[1] = tmp
-edges.sort(key=lambda x: (x[0], x[1]))
-
-visited = [False for i in range(N+1)]
-dfs(edges, visited)
+visited = [0 for i in range(N+1)]
+sorting(arr)
+arr.sort(key = lambda x: (x[0], x[1]))
+visited[V] = 1
+dfs(V, arr, visited)
 
 print()
 
-visited = [False for i in range(N+1)]
-bfs(edges, visited)
+visited = [0 for i in range(N+1)]
+sorting(arr)
+arr.sort(key = lambda x: (x[0], x[1]))
+visited[V] = 1
+bfs(V, arr, visited)
