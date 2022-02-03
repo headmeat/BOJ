@@ -1,47 +1,33 @@
 from sys import stdin
-input = stdin.readline
+import heapq
 
 INF = 10 ** 15
-
-def getMin(dp, visited):
-    mn = INF
-    idx = -1
-
-    for i in range(1, len(dp)):
-        if visited[i] == 0:
-            mn = min(dp[i], mn)
-            idx = i
-    return idx
-
-def update(n):
-    for i in matrix[n]:
-        if i[0] == start: continue
-        dp[i[0]] = min(dp[n] + i[1], dp[i[0]])
-
 N, M = map(int, input().split())
 start = int(input())
+adj = [[] for _ in range(N+1)]
 dp = [INF for _ in range(N+1)]
-matrix = [[] for _ in range(N+1)]
-visited = [0 for _ in range(N+1)]
+dp[start] = 0
 
 for _ in range(M):
     a, b, w = map(int, input().split())
-    matrix[a].append((b, w))
-    if a == start: dp[b] = min(dp[b], w)
+    adj[a].append((b, w))
 
-visited[start] = 1
+def djikstra(start):
+    q = []
+    heapq.heappush(q, (0, start))
 
-while ( True ):
-    idx = getMin(dp, visited)
-    if idx == -1: break
-    else:
-        visited[idx] = 1
-        update(idx)
+    while( q ):
+        w, n = heapq.heappop(q)
+        if dp[n] < w: continue
+        
+        for i in adj[n]:
+            cost = dp[n] +  i[1]
+            if cost < dp[i[0]]:
+                dp[i[0]] = cost
+                heapq.heappush(q, (cost, i[0]))
 
-print(visited)
+djikstra(start)
 
-for i in range(1, N+1):
-    if i == start: print(0)
-    else:
-        if dp[i] == INF: print("INF")
-        else: print(dp[i])
+for i in range(1, len(dp)):
+    if dp[i] == INF: print("INF")
+    else: print(dp[i])
