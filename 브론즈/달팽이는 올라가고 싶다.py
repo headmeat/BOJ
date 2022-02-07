@@ -1,8 +1,9 @@
-A, B, V = map(int, input().split())
-tmp = -1
+a, b, v = map(int, input().split())
+tmp = (v - a)
 
-if int((V-A) / (A-B)) < (V-A) / (A-B):
-    tmp = int((V-A) / (A-B)) * (A-B) +(A-B)
-else: tmp = int((V-A) / (A-B)) * (A-B)
+if tmp % ( a - b ) != 0:
+    tmp = (tmp // (a - b) + 1) * (a-b)
 
-print(int(tmp / (A-B)) + 1)
+val = tmp // (a-b)
+
+print(val if val==v else (val + 1))
