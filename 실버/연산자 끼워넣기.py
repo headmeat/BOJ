@@ -1,3 +1,48 @@
+def solve(i, arr, sm):
+    if i == n:
+        global mx, mn
+        mx = max(sm, mx)
+        mn = min(sm, mn)
+        return
+
+    if arr[0] > 0:
+        arr[0] -= 1
+        solve(i+1, arr, sm + nums[i])
+        arr[0] += 1
+    if arr[1] > 0:
+        arr[1] -= 1
+        solve(i+1, arr, sm - nums[i])
+        arr[1] += 1
+    if arr[2] > 0:
+        arr[2] -= 1
+        solve(i+1, arr, sm * nums[i])
+        arr[2] += 1
+    if arr[3] > 0:
+        arr[3] -= 1
+        if sm < 0: solve(i+1, arr, -(abs(sm)//nums[i]))
+        else: solve(i+1, arr, sm // nums[i])
+        arr[3] += 1
+
+T = int(input())
+
+for k in range(T):
+    n = int(input())
+    nums = list(map(int, input().split()))
+    ops = ["+", "-", "*", "//"]
+    combs = []
+    tmp = list(map(int, input().split()))
+    mx = -10 ** 15
+    mn = 10 ** 15
+
+    for i in range(4):
+        for j in range(tmp[i]): combs.append(ops[i])
+
+    solve(1, tmp, nums[0])
+
+    print(f"#{k+1} {mx} {mn}")
+
+"""
+#기존
 from itertools import permutations
 
 N = int(input())
@@ -29,3 +74,4 @@ for i in set(permutations(calcs, len(calcs))):
     calculate(i)
 print(max(res))
 print(min(res))
+"""
