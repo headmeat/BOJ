@@ -1,3 +1,31 @@
+from sys import stdin
+
+input = stdin.readline
+
+n = int(input())
+lst = list(map(int, input().split()))
+res = set()
+
+def solve(i, sm):
+    if i == n:
+        res.add(sm)
+        return
+
+    solve(i+1, sm)
+    solve(i+1, sm + lst[i])
+
+solve(0, 0)
+mx = max(res)
+res = sorted(list(res))
+
+for i in range(1, mx):
+    if res[i] != i:
+        print(i)
+        exit(0)
+
+print(mx + 1)
+
+"""
 #부분수열의 합
 
 N = int(input())
@@ -30,3 +58,4 @@ for i in range(1, 20 * 100000):
     if tmp[i] == 0: 
         print(i)
         break
+"""
