@@ -57,3 +57,21 @@ while(sum(visited) + 1 != len(visited)):
             else: next += 1
 
 print(all[0])
+
+"""
+#최적의 해
+from sys import stdin
+input = stdin.readline
+
+string = input().rstrip().split("-")
+
+for i in range(len(string)):
+    string[i] = sum(map(int, string[i].split("+")))
+
+start = int(string[0])
+
+for i in range(1, len(string)):
+    start -= int(string[i])
+
+print(start)
+"""
