@@ -15,51 +15,45 @@ def solve(i, cam, arr):
     if len(arr) == len(cam):
         global square_spots
         s = set()
-        idx = 0
 
-        for a in range(n):
-            for b in range(m):
-                if lst[a][b] == "#": continue
+        for a in range(len(cam)):
+            x, y = cam[a][0], cam[a][1]
 
-                if 1<=lst[a][b]<=5:
-                    for c in directions[cam[idx]][arr[idx]]:
-                        if c == 0:
-                            for d in range(a-1, -1, -1):
-                                if lst[d][b] == 6: break
-                                if lst[d][b] == 0: s.add((d, b))
-                        elif c == 1:
-                            for d in range(b+1, m):
-                                if lst[a][d] == 6: break
-                                if lst[a][d] == 0: s.add((a, d))
-                        elif c == 2:
-                            for d in range(a+1, n):
-                                if lst[d][b] == 6: break
-                                if lst[d][b] == 0: s.add((d, b))
-                        else:
-                            for d in range(b-1, -1, -1):
-                                if lst[a][d] == 6: break
-                                if lst[a][d] == 0: s.add((a, d))
-
-                    idx += 1
+            for c in directions[lst[x][y]-1][arr[a]]:
+                if c == 0:
+                    for d in range(x-1, -1, -1):
+                        if lst[d][y] == 6: break
+                        if lst[d][y] == 0: s.add((d, y))
+                elif c == 1:
+                    for d in range(y+1, m):
+                        if lst[x][d] == 6: break
+                        if lst[x][d] == 0: s.add((x, d))
+                elif c == 2:
+                    for d in range(x+1, n):
+                        if lst[d][y] == 6: break
+                        if lst[d][y] == 0: s.add((d, y))
+                else:
+                    for d in range(y-1, -1, -1):
+                        if lst[x][d] == 6: break
+                        if lst[x][d] == 0: s.add((x, d))
 
         square_spots = min(square_spots, spots - len(s))
         return
+    
+    camera = lst[cam[i][0]][cam[i][1]]
 
-    for r in range(4):
-        if (cam[i] == 1 and r > 1) or (cam[i]==4 and r>0): break
+    for r in range(len(directions[camera-1])):
         arr.append(r)
         solve(i+1, cam, arr)
         del arr[-1]
 
-k = 0
 spots = 0
 cam = []
 
 for i in range(n):
     for j in range(m):
         if 1<=lst[i][j]<=5: 
-            k += 1
-            cam.append(lst[i][j]-1)
+            cam.append((i, j))
         elif lst[i][j] == 0: spots += 1
 
 solve(0, cam, [])
