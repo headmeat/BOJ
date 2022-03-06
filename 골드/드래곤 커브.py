@@ -7,9 +7,6 @@ dragon = [list(map(int, input().split())) for _ in range(n)]
 arr = [[False for _ in range(101)] for _ in range(101)]
 dx = [0, -1, 0, 1]
 dy = [1, 0, -1, 0]
-poss = [0, 1, 2, 3]
-rev = [2, 3, 0, 1]
-dictionary = {0:"동", 1:"북", 2:"서", 3:"남"}
 
 def dragonize(start, dir, gen):
     movements = []
@@ -25,7 +22,7 @@ def dragonize(start, dir, gen):
         next = []
 
         for j in movements:
-            next.append(rev[poss[j-1]])
+            next.append((((j+3)%4)+2)%4)
         
         next.reverse()
 
