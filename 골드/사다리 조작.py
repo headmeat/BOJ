@@ -15,18 +15,16 @@ for i in range(1, h+1):
         if pipes[i][j-1] == 0 and pipes[i][j] == 0 and (pipes[i][j+1] == 0 if j+1<n else True):
             location.append((i, j))
 
-def solve(arr, maximal, last):
-    if len(arr)==maximal:
+def solve(c, maximal, last):
+    if c==maximal:
         if goDown():
             print(maximal)
             exit(0)
         return
 
     for i in range(last+1, len(location)):
-        arr.append(i)
         pipes[location[i][0]][location[i][1]] = 1
-        solve(arr, maximal, i)
-        del arr[-1]
+        solve(c+1, maximal, i)
         pipes[location[i][0]][location[i][1]] = 0
 
 def goDown():
@@ -45,6 +43,6 @@ def goDown():
 
 for i in range(0, 4):
     maximal = i
-    solve([], maximal, -1)
+    solve(0, maximal, -1)
 
 print(-1)
