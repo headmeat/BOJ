@@ -1,5 +1,5 @@
-from sys import stdin
 from collections import deque
+from sys import stdin
 input = stdin.readline
 
 n, l, r = map(int, input().split())
@@ -8,8 +8,8 @@ arr = [list(map(int, input().split())) for _ in range(n)]
 dx = [-1, 0, 1, 0]
 dy = [0, -1, 0, 1]
 
-def bfs(v, visited, flag):
-    visited[v[0]][v[1]] = flag
+def bfs(v):
+    visited[v[0]][v[1]] = 1
     stack = [v]
     queue = deque()
     queue.append(v)
@@ -25,30 +25,35 @@ def bfs(v, visited, flag):
                 queue.append((x, y))
                 sm += arr[x][y]
                 stack.append((x, y))
-                visited[a[0]+dx[i]][a[1]+dy[i]] = flag
+                visited[x][y] = 1
     
-    value = sm // len(stack)
-    borders = len(stack)-1
+    borders = len(stack)
+    value = sm // borders
 
-    while(stack):
-        a, b = stack.pop()
-        arr[a][b] = value
+    if len(stack)>1:
+        while(stack):
+            a, b = stack.pop()
+            arr[a][b] = value
+            jwapyo.append((a, b))
 
-    return borders
+    return borders-1
 
 count = 0
+jwapyo = deque()
 
-while(True):#1 day for each loop
+for i in range(n):
+    for j in range(0 if i%2==0 else 1, n, 2):
+        jwapyo.append((i, j%n))
+
+while(count<=2000):#1 day for each loop
     visited = [[0 for _ in range(n)] for _ in range(n)]
-    flag = 0
     borders = 0
 
-    for i in range(n):
-        for j in range(n):
-            if visited[i][j] == 0:
-                flag += 1
-                borders += bfs((i, j), visited, flag)
-    
+    for i in range(len(jwapyo)):
+        i, j = jwapyo.popleft()
+        if visited[i][j] == 0:
+            borders += bfs((i, j))
+
     if borders == 0: break
     count += 1
 
