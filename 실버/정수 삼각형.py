@@ -20,3 +20,31 @@ for i in range(n):
     prev = curr
 
 print(max(prev))
+
+'''
+#DFS 풀이 방식
+
+from sys import stdin
+input = stdin.readline
+
+n = int(input())
+arr = []
+dp = []
+
+for _ in range(n):
+    arr.append(list(map(int, input().split())))
+    dp.append([0]*len(arr[_]))
+
+def solve(i, j):
+    if i>=n or j>i:
+        return 0
+
+    if dp[i][j] != 0:
+        return dp[i][j]
+
+    dp[i][j] = arr[i][j] + max(solve(i+1, j), solve(i+1, j+1))
+
+    return dp[i][j]
+
+print(solve(0, 0))
+'''
