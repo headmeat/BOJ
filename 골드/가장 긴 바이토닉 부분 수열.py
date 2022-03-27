@@ -16,9 +16,4 @@ for i in range(n-1, -1, -1):
         if arr[i]>arr[j]:
             lds[i] = max(lds[i], lds[j]+1)
 
-mx = 0
-
-for i in range(n):
-    mx = max(mx, lds[i]+lis[i]-1)
-
-print(mx)
+print(max([lds[i]+lis[i]-1 for i in range(n)]))
