@@ -20,7 +20,7 @@ def munji():
     spread = [x[:] for x in arr]
     for i in range(r):
         for j in range(c):
-            if arr[i][j]>0:
+            if arr[i][j]>4:
                 count = 0
 
                 for k in range(4):
