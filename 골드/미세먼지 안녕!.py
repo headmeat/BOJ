@@ -40,8 +40,7 @@ def munji():
 def filter():
     upper = [machine, 0]
     lower = [machine+1, 0]
-    idx = 0
-    prev = 0
+    idx = prev = 0
 
     while(idx<4):
         upper[0] += dx[upper_dir[idx]]
@@ -58,8 +57,7 @@ def filter():
         upper[1] -= dy[upper_dir[idx]]
         idx += 1
 
-    idx = 0
-    prev = 0
+    idx = prev = 0
 
     while(idx<4):
         lower[0] += dx[lower_dir[idx]]
