@@ -38,41 +38,29 @@ def munji():
     arr = spread
 
 def filter():
-    upper = [machine, 0]
-    lower = [machine+1, 0]
+    upper = [machine, 1]
+    lower = [machine+1, 1]
     idx = prev = 0
 
-    while(idx<4):
+    while(arr[upper[0]][upper[1]]!=-1):
+        curr = arr[upper[0]][upper[1]]
+        arr[upper[0]][upper[1]] = prev
+        prev = curr
+        if not (0<=upper[0]+dx[upper_dir[idx]]<r and 0<=upper[1]+dy[upper_dir[idx]]<c):
+            idx += 1
         upper[0] += dx[upper_dir[idx]]
         upper[1] += dy[upper_dir[idx]]
 
-        while(0<=upper[0]<r and 0<=upper[1]<c and arr[upper[0]][upper[1]]!=-1):
-            curr = arr[upper[0]][upper[1]]
-            arr[upper[0]][upper[1]] = prev
-            prev = curr
-            upper[0] += dx[upper_dir[idx]]
-            upper[1] += dy[upper_dir[idx]]
-
-        upper[0] -= dx[upper_dir[idx]]
-        upper[1] -= dy[upper_dir[idx]]
-        idx += 1
-
     idx = prev = 0
 
-    while(idx<4):
+    while(0<=lower[0]<r and 0<=lower[1]<c and arr[lower[0]][lower[1]]!=-1):
+        curr = arr[lower[0]][lower[1]]
+        arr[lower[0]][lower[1]] = prev
+        prev = curr
+        if not (0<=lower[0]+dx[lower_dir[idx]]<r and 0<=lower[1]+dy[lower_dir[idx]]<c):
+            idx += 1
         lower[0] += dx[lower_dir[idx]]
         lower[1] += dy[lower_dir[idx]]
-
-        while(0<=lower[0]<r and 0<=lower[1]<c and arr[lower[0]][lower[1]]!=-1):
-            curr = arr[lower[0]][lower[1]]
-            arr[lower[0]][lower[1]] = prev
-            prev = curr
-            lower[0] += dx[lower_dir[idx]]
-            lower[1] += dy[lower_dir[idx]]
-        
-        lower[0] -= dx[lower_dir[idx]]
-        lower[1] -= dy[lower_dir[idx]]
-        idx += 1
 
 for i in range(t):
     munji()
