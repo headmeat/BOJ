@@ -12,8 +12,8 @@ for _ in range(n**2):
     i = tmp[0]
     for j in range(1, len(tmp)):
         arr[tmp[0]][tmp[j]] = 1
-
-    lst = [[[0, 0] for _ in range(n)] for _ in range(n)]
+    friend = space = 0
+    x = y = 0
 
     for j in range(n-1, -1, -1):
         for k in range(n-1, -1, -1):
@@ -25,17 +25,12 @@ for _ in range(n**2):
                     if arr[i][room[j+dx[d]][k+dy[d]]] == 1: l += 1
                     elif room[j+dx[d]][k+dy[d]]==0: c += 1
 
-            lst[j][k][0], lst[j][k][1] = l, c
-
-    x = y = n-1
-
-    for j in range(n-1, -1, -1):
-        for k in range(n-1, -1, -1):
-            if room[j][k]>0: continue
-            if lst[j][k][0]==lst[x][y][0]:
-                if lst[j][k][1]>=lst[x][y][1]:
-                        x, y = j, k
-            elif lst[j][k][0]>lst[x][y][0]:
+            if l>friend: 
+                friend = l
+                space = c
+                x, y = j, k
+            elif l==friend and c>=space:
+                space = c
                 x, y = j, k
 
     room[x][y] = i
