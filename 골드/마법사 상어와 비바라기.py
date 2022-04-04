@@ -5,8 +5,9 @@ def cd(x):
     if x>=0:
         x%=n
     elif x<-n:
-        while(x<-n):
-            x += n
+        x *= -1
+        x %= n
+        x *= -1
     
     return x
 
