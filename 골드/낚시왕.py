@@ -36,7 +36,12 @@ def shark_moves():
         x, y = sharks[i][0], sharks[i][1]
         speed = sharks[i][2]
         d = sharks[i][3]
-
+        
+        if d == 0 or d == 1:
+            speed %= ((r-1)*2)
+        elif d == 2 or d == 3:
+            speed %= ((c-1)*2)
+        
         for _ in range(speed):
             if 0<=x+dx[d]<r and 0<=y+dy[d]<c:
                 x += dx[d]
