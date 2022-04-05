@@ -27,21 +27,18 @@ def fisher(stand):
             return
 
 def shark_moves():
-    global arr
-    tmp = [[0 for _ in range(c)] for _ in range(r)]
-
     for i in range(m):
         if death[i]==1: continue
-        
         x, y = sharks[i][0], sharks[i][1]
+        if arr[x][y]==i+1: arr[x][y] = 0
         speed = sharks[i][2]
         d = sharks[i][3]
-        
+
         if d == 0 or d == 1:
             speed %= ((r-1)*2)
         elif d == 2 or d == 3:
             speed %= ((c-1)*2)
-        
+
         for _ in range(speed):
             if 0<=x+dx[d]<r and 0<=y+dy[d]<c:
                 x += dx[d]
@@ -57,20 +54,18 @@ def shark_moves():
         
         sharks[i][3] = d
         
-        if tmp[x][y]>0:
-            if sharks[i][4]>sharks[tmp[x][y]-1][4]:
-                death[tmp[x][y]-1] = 1
+        if arr[x][y]>0 and arr[x][y]<i+1:
+            if sharks[i][4]>sharks[arr[x][y]-1][4]:
+                death[arr[x][y]-1] = 1
                 sharks[i][0] = x
                 sharks[i][1] = y
-                tmp[x][y] = i+1
+                arr[x][y] = i+1
             else:
                 death[i] = 1
         else:
-            tmp[x][y] = i+1
+            arr[x][y] = i+1
             sharks[i][0] = x
             sharks[i][1] = y
-
-    arr = tmp
 
     return
 
