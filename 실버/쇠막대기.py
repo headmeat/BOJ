@@ -8,11 +8,6 @@ stack = []
 ans = 0
 
 for i in range(len(string)):
-    if string[i]==")":
-        if string[i-1]!="(":
-            n += 1
-
-for i in range(len(string)):
     if string[i] == "(":
         stack.append(string[i])
     else:
@@ -22,5 +17,6 @@ for i in range(len(string)):
                 ans += len(stack)
             else:
                 stack.pop()
+                n += 1
 
 print(ans+n)
