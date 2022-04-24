@@ -10,6 +10,7 @@ location = [0, 0]
 dice_dir = 1
 #북동남서 = 0123
 direction = [[2, 1, 4, 3, 5, 0], [0, 5, 1, 2, 4, 3], [5, 1, 0, 3, 2, 4], [0, 2, 3, 5, 4, 1]]
+dp = [[0 for _ in range(m)] for _ in range(n)]
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 
@@ -59,7 +60,8 @@ def move():
         dice_dir -= 1
         if dice_dir<0: dice_dir = 3
 
-    score += arr[x][y] * bfs(x, y)
+    if dp[x][y]==0: dp[x][y] = arr[x][y] * bfs(x, y)
+    score += dp[x][y]
 
     location[0], location[1] = x, y
 
