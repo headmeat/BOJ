@@ -1,6 +1,5 @@
 from sys import stdin
 from collections import deque
-from copy import deepcopy
 input = stdin.readline
 
 n,m,k = map(int, input().split())
