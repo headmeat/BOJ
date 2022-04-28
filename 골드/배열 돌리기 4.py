@@ -13,13 +13,13 @@ def solve(lst):
     global ans
 
     if len(lst)==k:
-        tmp = deepcopy(arr)
+        tmp = [x[:] for x in arr]
 
         for i in range(k):
             visited = [[0 for _ in range(m)] for _ in range(n)]
             r, c, s = rotation[lst[i]]
             spin(r-s-1, c-s-1, r+s, c+s, tmp, visited, 1)
-            
+
         for i in range(n):
             ans = min(ans, sum(tmp[i]))
 
