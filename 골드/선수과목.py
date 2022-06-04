@@ -1,6 +1,5 @@
 from sys import stdin
 from collections import deque
-from copy import deepcopy
 input = stdin.readline
 
 n, m = map(int, input().split())
@@ -32,7 +31,7 @@ while(q):
         else: tmp.append(v)
 
     q = tmp
-    neighbors = [x for x in updated_neighbors]
+    neighbors = updated_neighbors
     c += 1
 
 print(" ".join(map(str, sem)))
