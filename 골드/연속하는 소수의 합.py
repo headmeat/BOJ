@@ -6,17 +6,11 @@ nn = 10**7
 primes = [1 for _ in range(nn)]
 p = []
 
-for i in range(2, int(len(primes)**0.5)+1):
+for i in range(2, len(primes)):
     if primes[i] == 0: continue
+    p.append(i)
     for j in range(i*2, len(primes), i):
         primes[j] = 0
-
-sieve = [*range(1, nn, 2)]
-
-for p in range(3, int(nn**0.5)+1, 2):
-    if sieve[p//2]:
-        sieve[p*p//2::p] = [0] * ((nn - p * p)//(2 * p) + 1)
-p = [2] + [p for p in sieve if p]
 
 for pp in range(t):
     n = int(input())
@@ -43,4 +37,4 @@ for pp in range(t):
 
     if ans:
         print("Scenario {0}:\n{1}".format(pp+1, min(list(ans))))
-        print()연속하는 소수의 합
+        print()
