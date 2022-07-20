@@ -3,15 +3,6 @@ input = stdin.readline
 
 n = int(input())
 
-def compare(arr):
-    for i in range(3, len(arr), 2):
-        s = len(arr) - i - 1
-        e = i//2+1
-
-        if "".join(map(str, arr[s:s+e])) == "".join(map(str, arr[s+e:])): return False
-
-    return True
-
 def dfs(arr):
     if len(arr)==n:
         print("".join(map(str, arr)))
@@ -19,7 +10,19 @@ def dfs(arr):
 
     for i in range(1, 4):
         if arr and arr[-1] == i: continue
+
+        arr = arr + [i]
+        sw = True
+
+        for j in range(3, len(arr), 2):
+            s = len(arr) - j - 1
+            e = j//2+1
+
+            if arr[s:s+e] == arr[s+e:]:
+                sw = False
+                break
         
-        if compare(arr + [i]): dfs(arr + [i])
+        if sw: dfs(arr)
+        del arr[-1]
 
 dfs([])
