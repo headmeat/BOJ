@@ -4,10 +4,6 @@ input = stdin.readline
 n = int(input())
 k = int(input())
 
-if k>=n:
-    print(0)
-    exit(0)
-
 arr = list(map(int, input().split()))
 d = []
 
@@ -18,6 +14,7 @@ for i in range(n-1):
 
 d.sort()
 
-for _ in range(k-1): d.pop()
+for _ in range(k-1): 
+    if d: d.pop()
 
 print(sum(d))
